@@ -1,0 +1,18 @@
+#entry-modal {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	margin-left: 20vw;
+	margin-right: 20vw;
+}
+#entry-body {
+	display: flex;
+	flex-direction: column;
+}
+.entry-item {
+	background-color: #ddd;
+	display: inline-block;
+	margin: 0.5rem;
+	padding: 0.5rem;
+	width: 50vw;
+}

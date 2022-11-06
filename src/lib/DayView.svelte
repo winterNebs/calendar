@@ -27,6 +27,9 @@
             console.log(h, pos, p);
         }
     }
+    // divide time in to discrete bins (ie 5 mins?)
+
+    //contiguous things are thingy... (use grid css? flexbox?
 </script>
 
 <div>

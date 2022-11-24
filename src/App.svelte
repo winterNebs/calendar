@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Entry, Status } from './lib/entry';
+    import { Entry, Status, Type } from './lib/entry';
     import EntryList from './lib/EntryList.svelte';
     import DayView from './lib/DayView.svelte';
 
@@ -15,7 +15,16 @@
     let desc: string = '';
     let date: HTMLInputElement;
     function addItem(): void {
-        entries.push(new Entry(title, desc, new Date(date.value)));
+        entries.push(
+            new Entry(
+                title,
+                desc,
+                new Date(date.value),
+                Status.New,
+                '',
+                mode === Mode.List ? Type.Todo : Type.Event
+            )
+        );
         entries.sort(sort);
         entries = entries;
         title = '';
@@ -55,17 +64,22 @@
         <button on:click={() => (mode = Mode.Day)}>Day View</button>
     </nav>
     <div id="entry-modal">
+        <p>
+            New
+            {#if mode == Mode.List}
+                TODO
+            {:else}
+                Entry
+            {/if}
+        </p>
         <input type="text" id="entry-modal-title" placeholder="Title" bind:value={title} />
         <textarea id="entry-modal-desc" placeholder="Description" bind:value={desc} />
         <input type="datetime-local" id="entry-modal-due" bind:this={date} />
         <button id="entry-modal-submit" on:click={addItem}>add</button>
     </div>
     <div id="entry-body">
-        {#if mode === Mode.List}
-            <EntryList {entries} {save} />
-        {:else if mode === Mode.Day}
-            <DayView {entries} {save} />
-        {/if}
+        <DayView {entries} {save} />
+        <EntryList {entries} {save} />
     </div>
 </main>
 

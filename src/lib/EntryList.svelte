@@ -1,13 +1,14 @@
 <script lang="ts">
-    import type { Entry } from './entry';
+    import { Type, type Entry } from './entry';
     import EntryComponent from './Entry.svelte';
 
     export let entries: Entry[];
     export let save: () => void;
+    $: filtered = entries.filter((e) => e.type == Type.Todo);
 </script>
 
 <div class="entry-div">
-    {#each entries as entry}
+    {#each filtered as entry}
         <EntryComponent {entry} on:save={save} />
     {/each}
 </div>
